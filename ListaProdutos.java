@@ -5,7 +5,7 @@ public class ListaProdutos {
 	private Produto[] listaProduto = new Produto[TAM_MAX];
 	public static int i;
 	public int cont = 0;
-	public static int quant = 0;
+	public int quant = 0;
 
 	public void inserir(Produto produto) {
 		for(i = 0; i < TAM_MAX; i++) {
@@ -15,10 +15,13 @@ public class ListaProdutos {
 			}
 		}
 		quant++;
+		ordenar();
 	}
 	 
 	public Produto localizar(int id, int inicio, int fim) {
-		int meio = (inicio + fim)/2;
+
+		//PESQUISA BINÁRIA
+		/*int meio = (inicio + fim)/2;
 		if(inicio > fim)
 			return null;
 		if(id == listaProduto[meio].getId()) {
@@ -31,29 +34,42 @@ public class ListaProdutos {
 			return localizar(id, meio+1, fim);
 		if(id < listaProduto[meio].getId())
 			return localizar(id, inicio, meio-1);
-		return null;
+		return null;*/
+		
+		//PESQUISA SEUQENCIAL
+		if(inicio == fim)
+			return null;
+		if(listaProduto[inicio].getId() == id)
+			return listaProduto[inicio];
+		else
+			return localizar(id, inicio+1, fim);
+		
 	}
 	
 	public void ordenar() {
 		Produto aux;
 		
-		for(i=0;i<quant;i++) {
-			if(listaProduto[i].getId() > listaProduto[i+1].getId()) {
-				aux = listaj    Produto[i+1];
-				listaProduto[i+1] = listaProduto[i];
-				listaProduto[i] = aux;
+		i = 0;
+		while(i < this.quant) {
+			for(int j=1+i;j<this.quant;j++) {
+				
+				if(listaProduto[i].getId() > listaProduto[j].getId()) {
+					aux = listaProduto[j];
+					listaProduto[j] = listaProduto[i];
+					listaProduto[i] = aux;
+				}
 			}
+			i++;
 		}
 	}
 	
 	public void imprimir() {
 		
-		for(i = 0; i < TAM_MAX; i++) {
-			System.out.print("Produto: " + listaProduto[i].getNome() + "; Preço: " + listaProduto[i].getPreço_uni() + "\n");
+		for(i = 0; i < this.quant; i++) {
+			System.out.print("Codigo: " + listaProduto[i].getId() + "; Produto: " + listaProduto[i].getNome() + "; Preço: " + listaProduto[i].getPreço_uni() + "\n");
 			if(listaProduto[i+1] == null)
 				break;
 		}
-		System.out.print(listaProduto.length);
 	}
 }
 

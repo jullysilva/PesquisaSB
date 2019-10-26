@@ -23,16 +23,16 @@ public class Supermercado {
 		lista.inserir(produto);
 		produto = new Produto(6, "Jaca", 8.50);
 		lista.inserir(produto);
-		//lista.ordenar();
+
 		lista.imprimir();
 		
-		System.out.print("Digite um produto: ");
+		System.out.print("\nDigite o código do produto: ");
 		code = entrada.nextInt();
-		//produto = lista.localizar(code, -1, 7);
+		produto = lista.localizar(code, 0, lista.quant);
 		if(produto != null)
-			System.out.print("Produto: " + produto.getNome() + "; Preço: " + produto.getPreço_uni() + " Total de comparações: " + lista.cont);
+			System.out.print("Código: " + produto.getId() + "; Produto: " + produto.getNome() + "; Preço: " + produto.getPreço_uni() + " Total de comparações: " + lista.cont);
 		else
-			System.out.print("Não encontado!");
+			System.out.print("Não encontado ou não existe!");
 		
 		
 	}
